@@ -2,38 +2,59 @@ package ru.netology.domain;
 
 public class Radio {
   private int currentVolume;
-  private int currentRadiostation;
+  private int currentRadioStation;
+  private int amountRadioStation = 10;
+  private int minRadioStation;
+  private int minVolume;
+  private int maxVolume = 100;
 
-  //Если прибавить радиостанцию на 9, то переключится на 0
-  public void nextRadiostation() {
-    if (currentRadiostation == 9) {
-      currentRadiostation = 0;
-      return;
-    }
-    currentRadiostation++;
+  public Radio() {
   }
 
-  //Если убавить радиостанцию на 0, то переключится на 9
-  public void prevRadiostation() {
-    if (currentRadiostation == 0) {
-      currentRadiostation = 9;
-      return;
-    }
-    currentRadiostation--;
+  public Radio(int amountRadioStation) {
+    this.amountRadioStation = amountRadioStation;
   }
 
-  //Если звук меньше 10, то прибавляется на 1
+  public void nextRadioStation() {
+    if (currentRadioStation == amountRadioStation-1) {
+      currentRadioStation = minRadioStation;
+      return;
+    }
+    currentRadioStation++;
+  }
+
+  public void prevRadioStation() {
+    if (currentRadioStation == minRadioStation) {
+      currentRadioStation = amountRadioStation-1;
+      return;
+    }
+    currentRadioStation--;
+  }
+
   public void increaseVolume() {
-    if (currentVolume < 10) {
+    if (currentVolume < maxVolume) {
       currentVolume++;
     }
   }
 
-  //Если звук больше 0, то прибавляется на 1
-  public void downVolume() {
-    if (currentVolume > 0) {
+  public void turnDownVolume() {
+    if (currentVolume > minVolume) {
       currentVolume--;
     }
+  }
+
+  public int getCurrentRadioStation() {
+    return currentRadioStation;
+  }
+
+  public void setCurrentRadioStation(int currentRadioStation) {
+    if (currentRadioStation > amountRadioStation-1) {
+      return;
+    }
+    if (currentRadioStation < minRadioStation) {
+      return;
+    }
+    this.currentRadioStation = currentRadioStation;
   }
 
   public int getCurrentVolume() {
@@ -41,26 +62,47 @@ public class Radio {
   }
 
   public void setCurrentVolume(int currentVolume) {
-    if (currentVolume > 10) {
+    if (currentVolume > maxVolume) {
       return;
     }
-    if (currentVolume < 0) {
+    if (currentVolume < minVolume) {
       return;
     }
+
     this.currentVolume = currentVolume;
   }
 
-  public int getCurrentRadiostation() {
-    return currentRadiostation;
+
+  public int getAmountRadioStation() {
+    return amountRadioStation;
   }
 
-  public void setCurrentRadiostation(int currentRadiostation) {
-    if (currentRadiostation > 9) {
-      return;
-    }
-    if (currentRadiostation < 0) {
-      return;
-    }
-    this.currentRadiostation = currentRadiostation;
+  public void setAmountRadioStation(int amountRadioStation) {
+    this.amountRadioStation = amountRadioStation;
   }
+
+  public int getMinRadioStation() {
+    return minRadioStation;
+  }
+
+  public void setMinRadioStation(int minRadioStation) {
+    this.minRadioStation = minRadioStation;
+  }
+
+  public int getMinVolume() {
+    return minVolume;
+  }
+
+  public void setMinVolume(int minVolume) {
+    this.minVolume = minVolume;
+  }
+
+  public int getMaxVolume() {
+    return maxVolume;
+  }
+
+  public void setMaxVolume(int maxVolume) {
+    this.maxVolume = maxVolume;
+  }
+
 }
